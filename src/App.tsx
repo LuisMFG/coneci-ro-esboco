@@ -4,7 +4,7 @@ import Hero from './components/Hero';
 import VotingForm from './components/VotingForm';
 import VotingResults from './components/VotingResults';
 import Footer from './components/Footer';
-import { initializeCandidates } from './utils/storage';
+import { initializeCandidates } from './utils/firebase-storage';
 import './styles/animations.css';
 
 function App() {

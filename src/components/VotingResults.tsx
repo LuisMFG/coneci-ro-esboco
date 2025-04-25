@@ -1,39 +1,36 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { getCandidates, downloadCSV } from '../utils/storage';
+import { onCandidatesChange, downloadCSV } from '../utils/firebase-storage';
 import { Candidate, ChartData } from '../types';
 import { BarChart, ArrowDownToLine } from 'lucide-react';
 
 const VotingResults: React.FC = () => {
   const [candidates, setCandidates] = useState<Candidate[]>([]);
   const [chartData, setChartData] = useState<ChartData>({ labels: [], values: [] });
-  const chartRef = useRef<HTMLCanvasElement>(null);
   const [totalVotes, setTotalVotes] = useState(0);
+  const [isExporting, setIsExporting] = useState(false);
 
   useEffect(() => {
-    const fetchData = () => {
-      const candidateData = getCandidates();
+    // Inscrever-se para atualizações em tempo real do Firebase
+    const unsubscribe = onCandidatesChange((candidateData) => {
       setCandidates(candidateData);
       
-      // Calculate total votes
+      // Calcular total de votos
       const total = candidateData.reduce((sum, candidate) => sum + candidate.votes, 0);
       setTotalVotes(total);
       
-      // Prepare chart data
+      // Preparar dados do gráfico
       setChartData({
         labels: candidateData.map(c => c.name),
         values: candidateData.map(c => c.votes)
       });
-    };
-
-    fetchData();
+    });
     
-    // Refresh data every 10 seconds
-    const interval = setInterval(fetchData, 10000);
-    return () => clearInterval(interval);
+    // Cancelar inscrição ao desmontar
+    return () => unsubscribe();
   }, []);
 
   const renderChart = () => {
-    // Simple bar chart visualization without external libraries
+    // Visualização simples de barras sem bibliotecas externas
     const maxVotes = Math.max(...chartData.values, 1);
     
     return (
@@ -75,8 +72,15 @@ const VotingResults: React.FC = () => {
     );
   };
   
-  const handleExport = () => {
-    downloadCSV();
+  const handleExport = async () => {
+    setIsExporting(true);
+    try {
+      await downloadCSV();
+    } catch (error) {
+      console.error("Erro ao exportar dados:", error);
+      alert("Erro ao exportar dados. Tente novamente.");
+    }
+    setIsExporting(false);
   };
 
   return (
@@ -99,10 +103,11 @@ const VotingResults: React.FC = () => {
             <div className="mt-8 flex justify-center">
               <button
                 onClick={handleExport}
-                className="flex items-center bg-green-600 hover:bg-green-700 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-300 shadow-md"
+                disabled={isExporting}
+                className="flex items-center bg-green-600 hover:bg-green-700 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-300 shadow-md disabled:bg-gray-400"
               >
                 <ArrowDownToLine className="mr-2" size={20} />
-                Exportar Resultados (CSV)
+                {isExporting ? "Exportando..." : "Exportar Resultados (CSV)"}
               </button>
             </div>
           </div>

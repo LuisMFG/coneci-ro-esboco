@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getCandidates, saveVote } from '../utils/storage';
+import { onCandidatesChange, saveVote } from '../utils/firebase-storage';
 import { Candidate, VoterData } from '../types';
 import { Check, ChevronRight } from 'lucide-react';
 
@@ -13,10 +13,16 @@ const VotingForm: React.FC = () => {
     documentId: '',
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
   useEffect(() => {
-    setCandidates(getCandidates());
+    // Inscrever-se para atualizações em tempo real
+    const unsubscribe = onCandidatesChange(newCandidates => {
+      setCandidates(newCandidates);
+    });
+    
+    // Cancelar inscrição ao desmontar
+    return () => unsubscribe();
   }, []);
 
   const validateForm = (): boolean => {
@@ -55,29 +61,39 @@ const VotingForm: React.FC = () => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validateForm() || !selectedCandidate) return;
     
-    const success = saveVote({
-      ...formData,
-      candidateId: selectedCandidate
-    });
+    setSubmitStatus('loading');
     
-    if (success) {
-      setSubmitStatus('success');
-      setFormData({ name: '', email: '', documentId: '' });
-      setCandidates(getCandidates());
-      setTimeout(() => {
-        setShowForm(false);
-        setSelectedCandidate(null);
-        setSubmitStatus('idle');
-      }, 3000);
-    } else {
+    try {
+      const success = await saveVote({
+        ...formData,
+        candidateId: selectedCandidate
+      });
+      
+      if (success) {
+        setSubmitStatus('success');
+        setFormData({ name: '', email: '', documentId: '' });
+        setTimeout(() => {
+          setShowForm(false);
+          setSelectedCandidate(null);
+          setSubmitStatus('idle');
+        }, 3000);
+      } else {
+        setSubmitStatus('error');
+        setErrors(prev => ({ 
+          ...prev, 
+          documentId: 'Este documento já foi utilizado para votação' 
+        }));
+      }
+    } catch (error) {
+      console.error("Erro ao enviar voto:", error);
       setSubmitStatus('error');
       setErrors(prev => ({ 
         ...prev, 
-        documentId: 'Este documento já foi utilizado para votação' 
+        general: 'Ocorreu um erro ao processar seu voto. Tente novamente.' 
       }));
     }
   };
@@ -174,6 +190,10 @@ const VotingForm: React.FC = () => {
                   </div>
                 ))}
 
+                {errors.general && (
+                  <p className="text-sm text-red-600">{errors.general}</p>
+                )}
+
                 <div className="flex space-x-4">
                   <button
                     type="button"
@@ -187,9 +207,10 @@ const VotingForm: React.FC = () => {
                   </button>
                   <button
                     type="submit"
-                    className="flex-1 bg-green-950 text-white py-3 px-6 rounded-xl hover:bg-green-900 transition-colors duration-300"
+                    disabled={submitStatus === 'loading'}
+                    className="flex-1 bg-green-950 text-white py-3 px-6 rounded-xl hover:bg-green-900 transition-colors duration-300 disabled:bg-gray-400"
                   >
-                    Confirmar Voto
+                    {submitStatus === 'loading' ? 'Enviando...' : 'Confirmar Voto'}
                   </button>
                 </div>
               </form>

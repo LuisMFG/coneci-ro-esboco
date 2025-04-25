@@ -9,11 +9,11 @@ const Hero: React.FC = () => {
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMzLjMxIDAgNiAyLjY5IDYgNnMtMi42OSA2LTYgNi02LTIuNjktNi02IDIuNjktNiA2LTZ6IiBzdHJva2U9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiIHN0cm9rZS13aWR0aD0iMiIvPjwvZz48L3N2Zz4=')] opacity-20" />
       </div>
       
-      {/* Content Container */}
+      
       <div className="container mx-auto px-4 py-24 relative z-10">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
-            {/* Text Content */}
+            
             <div className="text-white space-y-8 animate-fadeIn">
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
                 <span className="block bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent mt-2">
@@ -45,7 +45,7 @@ const Hero: React.FC = () => {
               </div>
             </div>
             
-            {/* Image Section */}
+            
             <div className="relative animate-fadeInRight">
               <div className="absolute inset-0 bg-gradient-to-br from-green-500/20 to-green-950/20 mix-blend-overlay rounded-3xl" />
               <div className="relative rounded-3xl overflow-hidden shadow-2xl group">
