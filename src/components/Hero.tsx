@@ -3,8 +3,33 @@ import { ArrowRight } from 'lucide-react';
 
 const Hero: React.FC = () => {
   return (
-    <section className="relative min-h-screen flex items-center bg-gradient-to-br from-green-950 to-green-900 overflow-hidden">
-      {/* Decorative Elements */}
+    <section className="relative min-h-screen flex items-center overflow-hidden">
+      {/* Left side gradient background */}
+      <div className="absolute top-0 bottom-0 left-0 w-1/2 bg-gradient-to-br from-green-950 to-green-900 z-0" />
+      
+      {/* Right side image/video background */}
+      <div className="absolute top-0 bottom-0 right-0 w-1/2 z-0">
+        <div className="absolute inset-0 bg-black/50" /> {/* Overlay to darken the image */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage: "url('/path-to-your-image.jpg')" // Replace with your image path
+          }}
+        />
+        {/* Alternative: Use video instead of image */}
+        {/* 
+        <video 
+          className="absolute inset-0 w-full h-full object-cover"
+          autoPlay 
+          muted 
+          loop
+        >
+          <source src="/path-to-your-video.mp4" type="video/mp4" />
+        </video>
+        */}
+      </div>
+      
+      
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMzLjMxIDAgNiAyLjY5IDYgNnMtMi42OSA2LTYgNi02LTIuNjktNi02IDIuNjktNiA2LTZ6IiBzdHJva2U9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiIHN0cm9rZS13aWR0aD0iMiIvPjwvZz48L3N2Zz4=')] opacity-20" />
       </div>
@@ -45,13 +70,9 @@ const Hero: React.FC = () => {
               </div>
             </div>
             
-            
+            {/* Right side content - can be empty or contain additional elements */}
             <div className="relative animate-fadeInRight">
-              <div className="absolute inset-0 bg-gradient-to-br from-green-500/20 to-green-950/20 mix-blend-overlay rounded-3xl" />
-              <div className="relative rounded-3xl overflow-hidden shadow-2xl group">
-                
-                <div className="absolute inset-0 bg-gradient-to-t from-green-950/80 to-transparent" />
-              </div>
+              {/* Optional: Add some foreground content on the right side */}
             </div>
           </div>
         </div>
