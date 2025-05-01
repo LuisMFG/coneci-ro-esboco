@@ -4,9 +4,9 @@ import { Candidate, VoterData } from "../types";
 
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAAxciitzLuPb3hc28Uthoarj2x8CEcMVU",
-  authDomain: "coneci-ro.firebaseapp.com",
-  databaseURL: "https://coneci-ro-default-rtdb.firebaseio.com",
+  apiKey: "-",
+  authDomain: "-",
+  databaseURL: "-",
   projectId: "coneci-ro",
   storageBucket: "coneci-ro.firebasestorage.app",
   messagingSenderId: "276280854470",
