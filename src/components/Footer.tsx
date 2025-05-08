@@ -20,9 +20,7 @@ const Footer: React.FC = () => {
       }}
     >
       <div className="container mx-auto px-6 py-16">
-        {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Brand Section */}
           <div className="space-y-6">
             <div className="flex items-center space-x-3">
               <img
@@ -33,7 +31,6 @@ const Footer: React.FC = () => {
             </div>
           </div>
 
-          {/* Contact Info */}
           <div>
             <h3 className="text-lg font-semibold mb-6">Contato</h3>
             <ul className="space-y-4">
@@ -52,7 +49,6 @@ const Footer: React.FC = () => {
             </ul>
           </div>
 
-          {/* Social Media */}
           <div>
             <h3 className="text-lg font-semibold mb-6">Redes Sociais</h3>
             <div className="flex space-x-4">
