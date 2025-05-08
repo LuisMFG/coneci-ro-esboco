@@ -30,9 +30,9 @@ export const initializeCandidates = async (): Promise<Candidate[]> => {
   
   if (!snapshot.exists()) {
     const defaultCandidates: Candidate[] = [
-      { id: 1, name: 'Godok', votes: 0 },
-      { id: 2, name: 'Frank Ocean', votes: 0 },
-      { id: 3, name: 'Leon Scott', votes: 0 },
+      { id: 1, name: 'Pessoa 01', votes: 0 },
+      { id: 2, name: 'Pessoa 02', votes: 0 },
+      { id: 3, name: 'Pessoa 03', votes: 0 },
     ];
     
     await set(candidatesRef, defaultCandidates);

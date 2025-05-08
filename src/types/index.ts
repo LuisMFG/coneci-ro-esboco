@@ -11,7 +11,3 @@ export interface VoterData {
   candidateId: number;
 }
 
-export interface ChartData {
-  labels: string[];
-  values: number[];
-}

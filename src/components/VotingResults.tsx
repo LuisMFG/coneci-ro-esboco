@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { onCandidatesChange, downloadCSV } from '../utils/firebase-storage';
-import { Candidate } from '../types';
-import { ArrowDownToLine } from 'lucide-react';
+import React, { useState, useEffect } from "react";
+import { onCandidatesChange, downloadCSV } from "../utils/firebase-storage";
+import { Candidate } from "../types";
+import { ArrowDownToLine } from "lucide-react";
 
 const VotingResults: React.FC = () => {
   const [candidates, setCandidates] = useState<Candidate[]>([]);
@@ -11,7 +11,10 @@ const VotingResults: React.FC = () => {
   useEffect(() => {
     const unsubscribe = onCandidatesChange((candidateData) => {
       setCandidates(candidateData);
-      const total = candidateData.reduce((sum, candidate) => sum + candidate.votes, 0);
+      const total = candidateData.reduce(
+        (sum, candidate) => sum + candidate.votes,
+        0
+      );
       setTotalVotes(total);
     });
     return () => unsubscribe();
@@ -37,7 +40,8 @@ const VotingResults: React.FC = () => {
               Resultados da Eleição
             </h2>
             <p className="text-lg text-gray-600">
-              Acompanhe em tempo real a quantidade de votos registrados para presidente do CONECI-RO.
+              Acompanhe em tempo real a quantidade de votos registrados para
+              presidente do CONECI-RO.
             </p>
           </div>
 
@@ -45,11 +49,9 @@ const VotingResults: React.FC = () => {
             <h3 className="text-5xl font-bold text-green-700 mb-4">
               {totalVotes}
             </h3>
-            <p className="text-xl text-gray-700">
-              votos computados
-            </p>
-
-            <div className="mt-8 flex justify-center">
+            <p className="text-xl text-gray-700">votos computados</p>
+            {/*
+             <div className="mt-8 flex justify-center">
               <button
                 onClick={handleExport}
                 disabled={isExporting}
@@ -59,8 +61,8 @@ const VotingResults: React.FC = () => {
                 {isExporting ? "Exportando..." : "Exportar Resultados (CSV)"}
               </button>
             </div>
+            */}
           </div>
-
         </div>
       </div>
     </section>
