@@ -1,26 +1,37 @@
-import React from 'react';
-import { MapPin, Mail, Phone, Facebook, Instagram, Youtube } from 'lucide-react';
+import React from "react";
+import {
+  MapPin,
+  Mail,
+  Phone,
+  Facebook,
+  Instagram,
+  Youtube,
+} from "lucide-react";
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-green-950 text-white">
+    <footer
+      className="text-white relative"
+      style={{
+        background:
+          "linear-gradient(to right, #0033A0 0%, #0033A0 10%, #009739 90%, #CCCC0A 102%)",
+      }}
+    >
       <div className="container mx-auto px-6 py-16">
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Brand Section */}
           <div className="space-y-6">
             <div className="flex items-center space-x-3">
-                <img
-                  src="images\coneci logo quadrado.png"
-                  alt="Logo"
-                  className="w-40 h-auto object-contain"
-                />
-              
+              <img
+                src="images\conecii logoo branca (1).png"
+                alt="Logo"
+                className="w-40 h-auto object-contain"
+              />
             </div>
           </div>
-
 
           {/* Contact Info */}
           <div>
@@ -46,9 +57,9 @@ const Footer: React.FC = () => {
             <h3 className="text-lg font-semibold mb-6">Redes Sociais</h3>
             <div className="flex space-x-4">
               {[
-                { icon: Facebook, label: 'Facebook' },
-                { icon: Instagram, label: 'Instagram' },
-                { icon: Youtube, label: 'Youtube' }
+                { icon: Facebook, label: "Facebook" },
+                { icon: Instagram, label: "Instagram" },
+                { icon: Youtube, label: "Youtube" },
               ].map(({ icon: Icon, label }) => (
                 <a
                   key={label}
@@ -70,10 +81,16 @@ const Footer: React.FC = () => {
               &copy; {currentYear} CONECI-RO. Todos os direitos reservados.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
-              <a href="#" className="text-white/60 hover:text-white text-sm transition-colors duration-300">
+              <a
+                href="#"
+                className="text-white/60 hover:text-white text-sm transition-colors duration-300"
+              >
                 Política de Privacidade
               </a>
-              <a href="#" className="text-white/60 hover:text-white text-sm transition-colors duration-300">
+              <a
+                href="#"
+                className="text-white/60 hover:text-white text-sm transition-colors duration-300"
+              >
                 Termos de Uso
               </a>
             </div>

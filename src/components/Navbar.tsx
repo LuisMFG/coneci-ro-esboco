@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
-import { FaHome, FaInfoCircle, FaVoteYea, FaChartBar } from 'react-icons/fa';
+import React, { useState, useEffect } from "react";
+import { Menu, X } from "lucide-react";
+import { FaHome, FaInfoCircle, FaVoteYea, FaChartBar } from "react-icons/fa";
 
 const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -11,37 +11,42 @@ const Navbar: React.FC = () => {
       setIsScrolled(window.scrollY > 20);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
+  const gradientStyle = {
+    background:
+      "linear-gradient(to right, #0033A0 0%, #0033A0 10%, #009739 90%, #CCCC0A 102%)",
+  };
+
   return (
     <header
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${isScrolled
-          ? 'bg-green-950/95 backdrop-blur-md shadow-lg py-3'
-          : 'bg-transparent py-6'
-        }`}
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
+        isScrolled ? "backdrop-blur-md shadow-lg py-3" : "bg-transparent py-6"
+      }`}
+      style={isScrolled ? gradientStyle : {}}
     >
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <a href="#" className="flex items-center space-x-3 group">
-              <img
-                src="images\versão 2 logo teste (1).png"
-                alt="Logo"
-                className="w-42 h-24 object-contain"
-              />
+            <img
+              src="images\logo coneciiiiii (1).png"
+              alt="Logo"
+              className="w-42 h-24 object-contain"
+            />
           </a>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-2">
             {[
-              { href: '#inicio', icon: FaHome, label: 'Início' },
-              { href: '#sobre', icon: FaInfoCircle, label: 'Sobre' },
-              { href: '#votacao', icon: FaVoteYea, label: 'Votação' },
-              { href: '#resultados', icon: FaChartBar, label: 'Resultados' }
+              { href: "#inicio", icon: FaHome, label: "Início" },
+              { href: "#sobre", icon: FaInfoCircle, label: "Sobre" },
+              { href: "#votacao", icon: FaVoteYea, label: "Votação" },
+              { href: "#resultados", icon: FaChartBar, label: "Resultados" },
             ].map(({ href, icon: Icon, label }) => (
               <a
                 key={href}
@@ -66,15 +71,19 @@ const Navbar: React.FC = () => {
 
       {/* Mobile Navigation */}
       <div
-        className={`md:hidden absolute top-full left-0 w-full bg-green-950/95 backdrop-blur-md transition-all duration-300 ${isMenuOpen ? 'max-h-[300px] opacity-100' : 'max-h-0 opacity-0 overflow-hidden'
-          }`}
+        className={`md:hidden absolute top-full left-0 w-full backdrop-blur-md transition-all duration-300 ${
+          isMenuOpen
+            ? "max-h-[300px] opacity-100"
+            : "max-h-0 opacity-0 overflow-hidden"
+        }`}
+        style={gradientStyle}
       >
         <div className="container mx-auto px-6 py-4 flex flex-col space-y-2">
           {[
-            { href: '#inicio', icon: FaHome, label: 'Início' },
-            { href: '#sobre', icon: FaInfoCircle, label: 'Sobre' },
-            { href: '#votacao', icon: FaVoteYea, label: 'Votação' },
-            { href: '#resultados', icon: FaChartBar, label: 'Resultados' }
+            { href: "#inicio", icon: FaHome, label: "Início" },
+            { href: "#sobre", icon: FaInfoCircle, label: "Sobre" },
+            { href: "#votacao", icon: FaVoteYea, label: "Votação" },
+            { href: "#resultados", icon: FaChartBar, label: "Resultados" },
           ].map(({ href, icon: Icon, label }) => (
             <a
               key={href}
